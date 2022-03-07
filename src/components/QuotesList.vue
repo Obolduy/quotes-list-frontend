@@ -1,13 +1,15 @@
 <template>
   <quote-item
-    v-for="quote in quotes" 
-    v-bind:key="quote.id"
-    :quote="quote"
+    v-for="post of posts" 
+    v-bind:key="post.id"
+    :post="post"
   />
 </template>
 
 <script>
-import QuoteItem from './QuoteItem.vue'
+  import QuoteItem from './QuoteItem.vue'
+  import axios from 'axios';
+
   export default {
   components: { QuoteItem },
     props: {
@@ -18,17 +20,37 @@ import QuoteItem from './QuoteItem.vue'
     },
     data() {
       return {
-        quotes: [
-          {id: 1, author: "Joker", quote: "Не тот джокер кто не джокер а тот кто джокер", tags: "Цитаты джокера", date: "15.10.2003"},
-          {id: 2, author: "Владик", quote: "Раз два три четыре пять", tags: "Цитаты владика, цитаты владика 2", date: "15.10.2003"},
-          {id: 3, author: "мне лень думать 1", quote: "ТУТ МОЖЕТ БЫТЬ И БОЛЕЕ ДЛИННАЯ ЦИТАТА", tags: "Цитаты джокера 2", date: "15.10.2003"},
-          {id: 4, author: "мне лень думать 2", quote: "Я НЕ ЗНАЮ КАКОЙ ЛИМИТ НА САМОМ ДЕЛЕ", tags: "Тут до трех тегов если что", date: "15.10.2003"},
-          {id: 5, author: "ПрИвЕт Из 2007", quote: "Абоба", tags: "Цитаты неджокера", date: "15.10.2003"},
-        ],
+        quotes: '',
+        tags: '',
+        posts: []
       }
     },
     methods: {
-        
+      async getQuotes() {
+        const response = await axios.get('http://backend.quotes.local/api/show-quotes');
+
+        this.quotes = response.data['quotes'].data;
+        this.tags = response.data['tags'];
+
+        for (let i in this.quotes) {
+          let post_tags = '';
+
+          for (let tag of this.tags[i]) {
+            post_tags += tag.tag +', ';
+          }
+
+          this.posts.push({
+            id: this.quotes[i].quote_id,
+            author: this.quotes[i].author,
+            text: this.quotes[i].text,
+            created_at: this.quotes[i].created_at,
+            tags: post_tags.substring(0, post_tags.length - 2)
+          });
+        }
+      }
+    },
+    mounted() {
+      this.getQuotes();
     }
   }
 </script>

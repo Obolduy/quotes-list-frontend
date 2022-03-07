@@ -8,13 +8,13 @@
     <v-card-header>
       <div>
         <div class="text-overline mb-1">
-          {{quote.author}}
+          {{post.author}}
         </div>
         <div class="text-h6 mb-1">
-          <span>{{quote.quote}}</span> 
+          <span>{{post.text}}</span> 
         </div>
         <div class="text-caption">
-          {{quote.tags}}
+          {{post.tags}}
         </div>
       </div>
     </v-card-header>
@@ -24,7 +24,7 @@
 <script>
 export default {
   props: {
-    quote: {
+    post: {
       type: Object,
       required: true
     }

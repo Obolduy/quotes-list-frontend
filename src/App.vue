@@ -1,23 +1,20 @@
 <template>
-  <v-app>
-    <v-main>
-      <HelloWorld/>
-    </v-main>
-  </v-app>
+  <header-green/>
+  <quotes-list/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+  import HeaderGreen from "@/components/HeaderGreen.vue";
+  import QuotesList from "@/components/QuotesList.vue";
 
-export default {
-  name: 'App',
+  export default {
+    components: {
+      HeaderGreen, QuotesList
+    }
 
-  components: {
-    HelloWorld,
-  },
-
-  data: () => ({
-    //
-  }),
-}
+  }
 </script>
+
+<style>
+
+</style>

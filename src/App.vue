@@ -1,17 +1,17 @@
 <template>
-  <header-green/>
-  <add-form @newQuote="addQuote"/>
-  <quotes-list :quotes="quotes"/>
+  <v-app>
+    <header-green/>
+    <quotes-list/>
+  </v-app>
 </template>
 
 <script>
   import HeaderGreen from "@/components/HeaderGreen.vue";
   import QuotesList from "@/components/QuotesList.vue";
-  import AddForm from "@/components/AddForm.vue";
 
   export default {
     components: {
-      HeaderGreen, AddForm, QuotesList
+      HeaderGreen, QuotesList
     },
     methods: {
       addQuote(newQuote) {

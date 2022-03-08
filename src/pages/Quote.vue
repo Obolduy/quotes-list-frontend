@@ -1,12 +1,11 @@
 <template>
     <v-card
-    class="mx-auto mt-2"
-    variant="outlined"
-    color="#5f7a59"
-    width="70%"
-    style="background-color: white; border-radius: 23px; overflow-x: auto;"
-    @click="showQuote"
-    elevation="24"
+        class="mx-auto mt-2"
+        variant="outlined"
+        color="#5f7a59"
+        width="70%"
+        style="background-color: white; border-radius: 23px; overflow-x: auto;"
+        elevation="24"
     >
     <v-card-header>
       <div>
@@ -28,16 +27,26 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     data() {
         return {
-            time: new Date(this.quote.created_at).toLocaleDateString("ru-RU"),
+            quote: '',
+            time: ''
         }
     },
-    props: {
-        quote: {
-            type: Object
-        }
+    methods: {
+        async getQuote() {
+            const response = await axios.get('http://backend.quotes.local/api/show-quote/' + this.$route.params.id);
+
+            this.quote = response.data.quote;
+
+            this.time = new Date(this.quote.created_at).toLocaleDateString("ru-RU");
+        },
+    },
+    mounted() {
+        this.getQuote();
     }
 }
 </script>

@@ -1,17 +1,16 @@
 <template>
   <v-app>
     <header-green/>
-    <quotes-list/>
+    <router-view></router-view>
   </v-app>
 </template>
 
 <script>
   import HeaderGreen from "@/components/HeaderGreen.vue";
-  import QuotesList from "@/components/QuotesList.vue";
 
   export default {
     components: {
-      HeaderGreen, QuotesList
+      HeaderGreen
     }
   }
 </script>

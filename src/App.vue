@@ -12,11 +12,6 @@
   export default {
     components: {
       HeaderGreen, QuotesList
-    },
-    methods: {
-      addQuote(newQuote) {
-        console.log(newQuote)
-      }
     }
   }
 </script>

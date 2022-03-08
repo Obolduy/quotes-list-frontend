@@ -8,13 +8,18 @@
       <v-row class="d-flex flex-column">
         <v-col>
           <v-textarea
+            name="quote"
+            v-model="newQuote.quote"
             autofocus
             no-resize
             label="Введите цитату"
+            required
           ></v-textarea>
         </v-col>
         <v-col>
           <v-text-field
+            name="author"
+            v-model="newQuote.author"
             label="Введите имя автора"
             persistent-hint
             required
@@ -22,10 +27,18 @@
         </v-col>
         <v-col>
           <v-select
+            v-if="newQuote.tags.length < 3"
+            name="tags"
+            v-model="newQuote.tags"
             :items="tagsList"
             label="Выберите от 1 до 3 тэгов"
             multiple
           ></v-select>
+          <div v-if="newQuote.tags.length === 3">
+            <div v-for="tag of newQuote.tags" v-bind:key="tag.id">
+              <v-btn @click="deleteTag" class="mb-2" color="black">{{tag}}</v-btn>
+            </div>
+          </div>
         </v-col>
       </v-row>
     </v-container>
@@ -35,6 +48,7 @@
       color="green"
       variant="outlined" 
       border="2px solid white"
+      @click="addQuote"
     >
       Опубликовать
     </v-btn>
@@ -43,6 +57,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   props: {
     tagsList: {
@@ -59,16 +75,20 @@ export default {
     }
   },
   methods: {
-    addQuote() {
-      this.id = Date.now();
-      this.$emit('newQuote', this.newQuote)
-      this.newQuote = {
-        author: '',
-        quote: '',
-        tags: [
+    async addQuote() {
+      if (this.newQuote.author == '' || this.newQuote.quote == '' || this.newQuote.tags.length <= 0) {
+        alert('Необходимо заполнить все поля');
 
-        ]
+        return false;
       }
+
+      const response = await axios.post('http://backend.quotes.local/api/add-quote', this.newQuote);
+
+      document.location.href = '/';
+    },
+    deleteTag(event) {
+      let index = this.newQuote.tags.indexOf(event.target.textContent);
+      this.newQuote.tags.splice(index,1);
     }
   }
 }

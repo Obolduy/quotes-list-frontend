@@ -7,13 +7,17 @@
     </v-toolbar-items>
   </v-toolbar>
   <add-dialog v-model:show="modelVisible">
-    <add-form @newQuote="addQuote"/>
+    <add-form
+      @newQuote="addQuote"
+      :tagsList="tagsList"
+    />
   </add-dialog>
 </template>
 
 <script>
 import AddDialog from "@/components/AddDialog.vue";
 import AddForm from "@/components/AddForm.vue";
+import axios from 'axios';
 
 export default {
   components: {
@@ -21,13 +25,22 @@ export default {
   },
   data() {
     return {
-      modelVisible: false
+      modelVisible: false,
+      tagsList: []
     }
   },
   methods: {
     showModel() {
       this.modelVisible = true;
     },
+    async getTags() {        
+      const response = await axios.get('http://backend.quotes.local/api/get-tags');
+
+      this.tagsList = response.data;
+    }
+  },
+  created() {
+    this.getTags();
   }
 }
 </script>

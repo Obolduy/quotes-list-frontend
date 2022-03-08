@@ -24,6 +24,7 @@
           <v-select
             :items="tagsList"
             label="Выберите от 1 до 3 тэгов"
+            multiple
           ></v-select>
         </v-col>
       </v-row>
@@ -43,16 +44,18 @@
 
 <script>
 export default {
+  props: {
+    tagsList: {
+        type: Array
+    }
+  },
   data() {
     return {
       newQuote: {
         author: '',
         quote: '',
-        tags: [
-
-        ]
-      },
-      tagsList: ['fdsdfsdf', 'fsdf', 'fsdffsd']
+        tags: []
+      }
     }
   },
   methods: {

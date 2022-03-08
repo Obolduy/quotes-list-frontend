@@ -1,23 +1,44 @@
 <template>
-  <form @submit.prevent="addQuote">
-    <input
-    type="text"
-    name="author" 
-    v-model="newQuote.author"
-    placeholder="Автор цитаты">
-    <textarea name="quote"
-    v-model="newQuote.quote"
-    placeholder="Введите текст цитаты">
-    </textarea>
-    <select name="tags" multiple v-model="newQuote.tags">
-      <option value="1" selected>Тег 1</option>
-      <option value="2">Тег 2</option>
-      <option value="3">Тег 3</option>
-      <option value="4">Тег 4</option>
-      <option value="5">Тег 5</option>
-    </select>
-    <input type="submit" value="Пнопка">
-  </form>
+<v-card>
+  <v-card-title>
+    <span class="text-h5">Добавить цитату</span>
+  </v-card-title>
+  <v-card-text>
+    <v-container>
+      <v-row class="d-flex flex-column">
+        <v-col>
+          <v-textarea
+            autofocus
+            no-resize
+            label="Введите цитату"
+          ></v-textarea>
+        </v-col>
+        <v-col>
+          <v-text-field
+            label="Введите имя автора"
+            persistent-hint
+            required
+          ></v-text-field>
+        </v-col>
+        <v-col>
+          <v-select
+            :items="tagsList"
+            label="Выберите от 1 до 3 тэгов"
+          ></v-select>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-card-text>
+  <v-card-actions>
+    <v-btn
+      color="green"
+      variant="outlined" 
+      border="2px solid white"
+    >
+      Опубликовать
+    </v-btn>
+  </v-card-actions>
+</v-card>
 </template>
 
 <script>
@@ -30,7 +51,8 @@ export default {
         tags: [
 
         ]
-      }
+      },
+      tagsList: ['fdsdfsdf', 'fsdf', 'fsdffsd']
     }
   },
   methods: {

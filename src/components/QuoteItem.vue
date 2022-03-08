@@ -1,7 +1,7 @@
 <template>
   <v-card
     class="mx-auto mt-2"
-    max-width="70%"
+    width="70%"
     variant="outlined"
     color="#5f7a59"
   >

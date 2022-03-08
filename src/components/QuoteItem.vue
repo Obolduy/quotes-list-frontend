@@ -4,6 +4,7 @@
     width="70%"
     variant="outlined"
     color="#5f7a59"
+    @click="showQuote"
   >
     <v-card-header>
       <div>
@@ -18,17 +19,38 @@
         </div>
       </div>
     </v-card-header>
-</v-card>
+  </v-card>
+  <single-quote-shower v-model:show="quoteVisible">
+    <single-quote
+    :quote="post"
+    />
+  </single-quote-shower>
 </template>
 
 <script>
+import SingleQuoteShower from "@/components/SingleQuoteShower.vue";
+import SingleQuote from "@/components/SingleQuote.vue";
+
 export default {
+  components: {
+    SingleQuoteShower, SingleQuote
+  },
+  data() {
+    return {
+      quoteVisible: false,
+    }
+  },
   props: {
     post: {
       type: Object,
       required: true
     }
-  }
+  },
+  methods: {
+    showQuote() {
+      this.quoteVisible = true;
+    }
+  },
 }
 </script>
 

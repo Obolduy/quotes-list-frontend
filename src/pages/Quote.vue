@@ -48,6 +48,8 @@ export default {
         async getQuote() {
             const response = await axios.get('http://backend.quotes.local/api/show-quote/' + this.$route.params.id);
 
+            if (response.data.error) return false;
+            
             this.quote = response.data.quote;
 
             for (let tag of response.data.tags) {

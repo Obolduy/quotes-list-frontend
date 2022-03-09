@@ -23,7 +23,7 @@
           Автор: {{quote.author}}
         </div>
         <div class="text-h6">
-          Теги: <span id="tags">{{quote.tags}}</span>
+          Теги: <span id="tags">{{tags}}</span>
         </div>
       </div>
     </v-card-header>
@@ -40,7 +40,8 @@ export default {
     data() {
         return {
             quote: '',
-            time: ''
+            time: '',
+            tags: '',
         }
     },
     methods: {
@@ -48,6 +49,12 @@ export default {
             const response = await axios.get('http://backend.quotes.local/api/show-quote/' + this.$route.params.id);
 
             this.quote = response.data.quote;
+
+            for (let tag of response.data.tags) {
+              this.tags += tag.tag + ', ';
+            }
+
+            this.tags = this.tags.slice(0, -2);
 
             this.time = new Date(this.quote.created_at).toLocaleDateString("ru-RU");
         },

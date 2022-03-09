@@ -39,7 +39,7 @@
     },
     data() {
       return {
-        quotes: '',
+        quotes_list: '',
         tags: '',
         posts: [],
         pageNumber: 1,
@@ -54,10 +54,10 @@
 
         this.lastPage = response.data['quotes'].last_page;
 
-        this.quotes = response.data['quotes'].data;
+        this.quotes_list = response.data['quotes'].data;
         this.tags = response.data['tags'];
 
-        for (let i in this.quotes) {
+        for (let i in this.quotes_list) {
           let post_tags = '';
 
           for (let tag of this.tags[i]) {
@@ -65,10 +65,10 @@
           }
 
           this.posts.push({
-            id: this.quotes[i].quote_id,
-            author: this.quotes[i].author,
-            text: this.quotes[i].text,
-            created_at: this.quotes[i].created_at,
+            id: this.quotes_list[i].quote_id,
+            author: this.quotes_list[i].author,
+            text: this.quotes_list[i].text,
+            created_at: this.quotes_list[i].created_at,
             tags: post_tags.substring(0, post_tags.length - 2)
           });
         }

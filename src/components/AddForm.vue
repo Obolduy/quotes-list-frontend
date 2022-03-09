@@ -89,7 +89,7 @@ export default {
         return false;
       }
 
-      const response = await axios.post('http://backend.quotes.local/api/add-quote', this.newQuote);
+      await axios.post('http://backend.quotes.local/api/add-quote', this.newQuote);
 
       document.location.href = '/';
     },

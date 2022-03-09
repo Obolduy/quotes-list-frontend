@@ -1,15 +1,15 @@
-import Main from "@/pages/Main.vue";
-import Quote from "@/pages/Quote.vue";
+import MainPage from "@/pages/MainPage.vue";
+import QuotePage from "@/pages/QuotePage.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
     {
         path: '/',
-        component: Main
+        component: MainPage
     },
     {
         path: '/quote/:id',
-        component: Quote
+        component: QuotePage
     },
 ];
 

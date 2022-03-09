@@ -11,6 +11,9 @@
   export default {
     components: {
       HeaderGreen
+    },
+    mounted() {
+      document.title = 'Сборник цитат';
     }
   }
 </script>

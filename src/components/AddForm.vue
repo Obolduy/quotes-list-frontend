@@ -23,7 +23,13 @@
             label="Введите имя автора"
             persistent-hint
             required
+            @keypress="checkAuthor"
           ></v-text-field>
+        </v-col>
+        <v-col>
+          <div class="mb-2" v-for="author in existstAuthors" :key="author.id">
+            <v-btn @click="changeAuthor">{{author}}</v-btn>
+          </div>
         </v-col>
         <v-col>
           <v-select
@@ -62,7 +68,7 @@ import axios from 'axios';
 export default {
   props: {
     tagsList: {
-        type: Array
+      type: Array
     }
   },
   data() {
@@ -71,7 +77,8 @@ export default {
         author: '',
         quote: '',
         tags: []
-      }
+      },
+      existstAuthors: []
     }
   },
   methods: {
@@ -85,6 +92,21 @@ export default {
       const response = await axios.post('http://backend.quotes.local/api/add-quote', this.newQuote);
 
       document.location.href = '/';
+    },
+    async checkAuthor() {
+      this.existstAuthors.length = 0;
+
+      if (this.newQuote.author.length > 2) {
+        const response = await axios.post('http://backend.quotes.local/api/check-author', {author: this.newQuote.author});
+        
+        for (let obj of response.data) {
+          this.existstAuthors.push(obj.author);
+        }
+      }
+    },
+    changeAuthor(event) {
+      this.newQuote.author = event.target.textContent;
+      this.existstAuthors.length = 0;
     },
     deleteTag(event) {
       let index = this.newQuote.tags.indexOf(event.target.textContent);

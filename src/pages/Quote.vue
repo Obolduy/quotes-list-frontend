@@ -7,7 +7,14 @@
         style="background-color: white; border-radius: 23px; overflow-x: auto;"
         elevation="24"
     >
-    <v-card-header>
+    <v-card-header v-if="!quote.id">
+      <div class="text-h6">
+        Цитата не найдена:(
+        <v-spacer></v-spacer>
+        <router-link to="/">Вернуться на главную</router-link>
+      </div>
+    </v-card-header>
+    <v-card-header v-if="quote.id">
       <div>
         <div class="text-h1 mb-4">
           <span id="quote">„{{quote.text}}“</span> 
@@ -20,7 +27,7 @@
         </div>
       </div>
     </v-card-header>
-    <v-card-subtitle class="pb-2">
+    <v-card-subtitle class="pb-2" v-if="quote.id">
       Дата добавления: {{time}}
     </v-card-subtitle>
   </v-card>
